@@ -4,8 +4,264 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>24/7</title>
+        <style>
+            *{
+                margin: 0;
+            }
+
+            body{
+                height: 100vh;
+                background-color: azure;
+            }
+
+            header{
+                background-color: bisque;
+                text-align: center;
+                padding-top: 3%;
+                font-size: large;
+            }
+
+            main{
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                background-color: azure;
+                margin-top: 5%;
+            }
+
+            #contenedorGlobal{
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                margin: auto;
+            }
+
+            #datosPersonal, #personal{
+                background-color: aquamarine;
+                border-radius: 5%;
+                box-shadow: 2px 2px 5px black;
+                padding: 5%;
+                height: 400px;
+                width: 250px;
+                margin: auto;
+                text-align: center;
+            }
+
+            td{
+                padding-bottom: 2%;
+                margin: 2px;
+            }
+
+            #datosPersonal{
+                height: auto;
+                width: auto;
+                border-radius: 5%;
+                padding: 5%;
+            }
+
+            #siguiente{
+                text-align: center;
+                padding: 5px;
+            }
+
+        </style>
     </head>
     <body>
-        
+        <header>
+            <h1>24/7</h1>
+        </header>
+        <main>
+            <div id="contenedorGlobal">
+                <div id="personal">
+                    <table>
+                        <tr>
+                            <th colspan="2"><label for="secciones">Indica el numero de trabajadores de tu hotel</label></th>
+                        </tr>
+                        <tr>
+                            <td><input type="number" name="empleados" id="numeroPersonal"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </main>
     </body>
+    <script>
+        var contenedorGlobal = document.getElementById('contenedorGlobal');
+        var divPersonal = document.getElementById('personal');
+        var personal = document.getElementById('numeroPersonal');
+
+        personal.addEventListener('change', function() {
+            var numeroPersonal = personal.value;
+
+            divPersonal.style.display = 'none';
+
+            var datosPersonal = document.createElement('div');
+            datosPersonal.id = 'datosPersonal';
+
+            var tablaPersonal = document.createElement('table');
+            tablaPersonal.id = 'tablaPersonal';
+
+            for (let i = 0; i < numeroPersonal; i++) {
+                // ----------------------------------------------------------------------------Crear filas e input nombre
+                var empleadoFila = document.createElement('tr');
+                empleadoFila.value = 'empleado ' + `${i + 1}`;
+
+                var nombreTd = document.createElement('td');
+                var nombreInputTd = document.createElement('td');
+
+                var nombreLabel = document.createElement('label');
+                nombreLabel.textContent = 'Nombre' + `${i + 1}`;
+                nombreTd.appendChild(nombreLabel);
+
+                var nombreInput = document.createElement('input');
+                nombreInput.type = 'text';
+                nombreInput.classList.add('nombre');
+                nombreInputTd.appendChild(nombreInput);
+                // ----------------------------------------------------------------------------Crear select seccion
+                var seccionTd = document.createElement('td');
+                var seccionSelectTd = document.createElement('td');
+
+                var seccionLabel = document.createElement('label');
+                seccionLabel.textContent = 'Sección';
+                seccionTd.appendChild(seccionLabel);
+
+                var seccionSelect = document.createElement('select');
+                seccionSelect.classList.add('seccion');
+                seccionSelectTd.appendChild(seccionSelect);
+
+                var optionRecepcion = document.createElement('option');
+                optionRecepcion.textContent = 'Recepción';
+                optionRecepcion.value = 'recepción';
+                
+                var optionSala = document.createElement('option');
+                optionSala.textContent = 'Sala';
+                optionSala.value = 'sala';
+
+                var optionCocina = document.createElement('option');
+                optionCocina.textContent = 'Cocina';
+                optionCocina.value = 'cocina';
+
+                seccionSelect.appendChild(optionRecepcion);
+                seccionSelect.appendChild(optionSala);
+                seccionSelect.appendChild(optionCocina);
+
+                // ----------------------------------------------------------------------------Crear select jornada
+                var jornadaTd = document.createElement('td');
+                var jornadaSelectTd = document.createElement('td');
+
+                var jornadaLabel = document.createElement('label');
+                jornadaLabel.textContent = 'Jornada';
+                jornadaTd.appendChild(jornadaLabel);
+
+                var jornadaSelect = document.createElement('select');
+                jornadaSelect.classList.add('jornada');
+                jornadaSelectTd.appendChild(jornadaSelect)
+
+                var optionCompleta = document.createElement('option');
+                optionCompleta.textContent = 'Completa';
+                optionCompleta.value = 40;
+                
+                var optionMedia = document.createElement('option');
+                optionMedia.textContent = 'Media';
+                optionMedia.value = 20;
+
+                jornadaSelect.appendChild(optionCompleta);
+                jornadaSelect.appendChild(optionMedia);
+
+                // ----------------------------------------------------------------------------Crear input dias libres
+                var libreTd = document.createElement('td');
+                var libreInputTd = document.createElement('td');
+
+                var libreLabel = document.createElement('label');
+                libreLabel.textContent = 'Días libres';
+                libreTd.appendChild(libreLabel);
+
+                var libreInput = document.createElement('input');
+                libreInput.classList.add('diasLibres');
+                libreInput.type = 'number';
+                libreInputTd.appendChild(libreInput);
+
+                // ----------------------------------------------------------------------------Añadir lo creado a la fila y la fila a la tabla
+                empleadoFila.appendChild(nombreTd);
+                empleadoFila.appendChild(nombreInputTd);
+                empleadoFila.appendChild(seccionTd);
+                empleadoFila.appendChild(seccionSelectTd);
+                empleadoFila.appendChild(jornadaTd);
+                empleadoFila.appendChild(jornadaSelectTd);
+                empleadoFila.appendChild(libreTd);
+                empleadoFila.appendChild(libreInputTd);
+
+                tablaPersonal.appendChild(empleadoFila);
+            }
+             // ----------------------------------------------------------------------------Crear boton siguiente, añadirlo a al tabla y añadir la tabla al div y este al contenedor general
+            var siguienteTr = document.createElement('tr');
+            var siguienteTd = document.createElement('td');
+            siguienteTd.colSpan = 4;
+            siguienteTr.id = 'siguiente';
+
+            var atrasTd = document.createElement('td');
+            atrasTd.colSpan = 4;
+            atrasTd.id = 'atras';
+            
+            var btnSiguiente = document.createElement('input');
+            btnSiguiente.type = 'submit';
+            btnSiguiente.id = 'enviar';
+            btnSiguiente.value = 'Crear calendario';
+
+            var btnAtras = document.createElement('input');
+            btnAtras.type = 'submit';
+            btnAtras.id = 'atras';
+            btnAtras.value = 'Volver';
+
+            atrasTd.appendChild(btnAtras);
+            siguienteTd.appendChild(btnSiguiente);
+
+            siguienteTr.appendChild(atrasTd);
+            siguienteTr.appendChild(siguienteTd);
+            
+            tablaPersonal.appendChild(siguienteTr);
+            datosPersonal.appendChild(tablaPersonal);
+            contenedorGlobal.appendChild(datosPersonal);
+
+             // --------------------------------------------------------------------------Se recogen los datos cuando se pulsa el boton enviar
+            var enviar = document.getElementById('enviar');
+            var atras = document.getElementById('atras');
+
+            enviar.addEventListener('click', function() {
+                guardarDatos();
+            });
+
+            atras.addEventListener('click', function() {
+                window.location.reload();
+            });
+
+            function guardarDatos(){
+                var arrayDatos = [];
+                var nombreValores = document.getElementsByClassName('nombre');
+                var seccionValores = document.getElementsByClassName('seccion');
+                var jornadaValores = document.getElementsByClassName('jornada');
+                var diasValores = document.getElementsByClassName('diasLibres');
+
+                for (var i = 0; i < nombreValores.length; i++) {
+                    var nombre = nombreValores[i].value;
+                    var seccion = seccionValores[i].value;
+                    var jornada = jornadaValores[i].value;
+                    var dias = diasValores[i].value;
+
+                    arrayDatos[i] = { 
+                        nombre: nombre, 
+                        seccion: seccion,
+                        jornada: jornada,
+                        dias: dias 
+                    };
+                }
+
+                console.log(arrayDatos);
+            }
+
+        });
+
+        
+    </script>
 </html>
